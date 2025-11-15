@@ -7,11 +7,13 @@ import Pricing from './components/NextSteps';
 import EmailSignup from './components/EmailSignup';
 import PaymentModal from './components/PaymentModal';
 import DetailsModal from './components/DetailsModal';
+import ShareModal from './components/ShareModal';
 import { AI_TOOLS, PRICING_PLANS, FEATURES, Plan, Tool } from './constants';
 
 const App: React.FC = () => {
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
 
   const handleSubscribeClick = (plan: Plan) => {
@@ -48,10 +50,13 @@ const App: React.FC = () => {
     setSelectedPlan(null);
   };
 
+  const handleOpenShareModal = () => setIsShareModalOpen(true);
+  const handleCloseShareModal = () => setIsShareModalOpen(false);
+
 
   return (
     <div className="bg-black min-h-screen text-gray-200 font-sans antialiased">
-      <Header />
+      <Header onShareClick={handleOpenShareModal} />
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <Hero />
 
@@ -100,6 +105,10 @@ const App: React.FC = () => {
         isOpen={isDetailsModalOpen}
         onClose={handleCloseDetailsModal}
         plan={selectedPlan}
+      />
+      <ShareModal 
+        isOpen={isShareModalOpen}
+        onClose={handleCloseShareModal}
       />
     </div>
   );
